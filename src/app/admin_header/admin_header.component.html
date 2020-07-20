@@ -1,0 +1,24 @@
+<div class="top-header">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="index.html"><img src="assets/images/tf-logo.png"></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a class="nav-link" routerLink="/contact">contact </a></li>
+          <!-- <li class="nav-item"><a class="nav-link btn-link blue-bg" href="#">Sign up</a> <a class="nav-link btn-link orange-bg" href="login.html"><i class="mdi mdi-lock"></i> Log ind</a></li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="nav-submenus">
+    <ul class="list-inline text-right">
+      <li id="linkSettings" class="list-inline-item"><a routerLink="/loglist"><i class="mdi mdi-settings"></i> Log List</a></li>
+      <li id="linkProfile" class="list-inline-item"><a routerLink="/userlist"><i class="mdi mdi-account"></i> User List</a></li>
+      <li id="linkLogout" class="list-inline-item"><a (click)="logout()" routerLink="/"><i class="mdi mdi-logout"></i> Log out</a></li>
+    </ul>
+  </div>
+</div>

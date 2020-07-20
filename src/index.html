@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Container Tracking</title>
+  <base href="./">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link href="assets/css/materialdesignicons.min.css" rel="stylesheet">
+  <link href="assets/css/material-dashboard.css" rel="stylesheet">
+  <link href="assets/css/demo-documentation.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Barlow:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+  <!--<link href="assets/css/bootstrap.min.css" rel="stylesheet">-->
+</head>
+<body>
+  <app-root>Loading....</app-root>
+
+  <!-- <ng-view>
+
+  </ng-view> -->
+
+  <!--node_modules/jquery/dist/jquery.min.js-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="assets/js/owl.carousel.js"></script>
+  <script type="text/javascript" src="assets/js/bootstrap-notify.js"></script>
+  <script>
+    //function show() {
+    //  var p = document.getElementById('exampleInputPassword1');
+    //  p.setAttribute('type', 'text');
+    //}
+
+    //function hide() {
+    //  var p = document.getElementById('exampleInputPassword1');
+    //  p.setAttribute('type', 'password');
+    //}
+    //function show1() {
+    //  var p = document.getElementById('txtPwd');
+    //  p.setAttribute('type', 'text');
+    //}
+
+    //function hide1() {
+    //  var p = document.getElementById('txtPwd');
+    //  p.setAttribute('type', 'password');
+    //}
+    //function show2() {
+    //  var p = document.getElementById('txtConfirmpwd');
+    //  p.setAttribute('type', 'text');
+    //}
+
+    //function hide2() {
+    //  var p = document.getElementById('txtConfirmpwd');
+    //  p.setAttribute('type', 'password');
+    //}
+    $(document).ready(function () {
+      var pwShown = 0;
+      var pwShown1 = 0;
+      var pwShown2 = 0;
+      //$("#eye").click(function () {
+      //  debugger;
+      //  if (pwShown == 0) {
+      //    pwShown = 1;
+      //    show();
+      //  } else {
+      //    pwShown = 0;
+      //    hide();
+      //  }
+      //});
+
+      //$("#eye").click(function () {
+      //  $(this).toggleClass("mdi-eye mdi-eye-off");
+      //});
+      //$("#eyePwd").click(function () {
+      //  debugger;
+      //  if (pwShown1 == 0) {
+      //    pwShown1 = 1;
+      //    show1();
+      //  } else {
+      //    pwShown1 = 0;
+      //    hide1();
+      //  }
+      //});
+
+      //$("#eyePwd").click(function () {
+      //  $(this).toggleClass("mdi-eye mdi-eye-off");
+      //});
+      //$("#eyeconfirmPwd").click(function () {
+      //  if (pwShown2 == 0) {
+      //    pwShown2 = 1;
+      //    show2();
+      //  } else {
+      //    pwShown2 = 0;
+      //    hide2();
+      //  }
+      //});
+
+      //$("#eyeconfirmPwd").click(function () {
+      //  $(this).toggleClass("mdi-eye mdi-eye-off");
+      //});
+      $('#CompanyBrand').owlCarousel({
+
+        loop: true,
+        margin: 10,
+        responsiveClass: true,
+        responsive: {
+          0: {
+            items: 2,
+            nav: true
+          },
+          600: {
+            items: 4,
+            nav: false
+          },
+          1000: {
+            items: 6,
+            nav: true,
+            loop: false,
+            margin: 20
+          }
+        }
+      })
+    })
+  </script>
+  <script>
+    $(document).ready(function () {
+      $('[data-toggle="toggle"]').change(function () {
+        $(this).parents().next('.hide').toggle();
+      });
+    });
+
+  </script>
+</body>
+</html>

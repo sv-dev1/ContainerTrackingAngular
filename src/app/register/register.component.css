@@ -1,0 +1,120 @@
+.welcome-text {
+    display: block;
+    text-align: center;
+    color: #808080;
+    margin-bottom: 33px;
+}
+
+.welcome-text span {
+    display: block;
+    margin-top: 4px;
+}
+
+.welcome-text span a {
+    font-weight: 500;
+}
+a {
+    color: #337ab7;
+    text-decoration: none;
+}
+
+.welcome-text h3 {
+    display: block;
+    font-weight: 700;
+    color: #333;
+    font-size: 24px;
+}
+
+.col-xs-12 {
+    width: 100%;
+}
+
+.account-type {
+    display: flex;
+    width: calc(100% + 20px);
+    margin: 0 0 20px 0;
+}
+
+.account-type div {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.account-type input.account-type-radio:empty {
+    display: none;
+}
+
+input[type=checkbox], input[type=radio] {
+    margin: 4px 0 0;
+    margin-top: 1px\9;
+    line-height: normal;
+}
+
+.account-type input.account-type-radio:checked ~ label {
+    color: #fff;
+    background-color: #FF6600;
+}
+.account-type input.account-type-radio:empty ~ label {
+    position: relative;
+    float: left;
+    padding: 10px;
+    text-align: center;
+    padding-bottom: 11px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    border-radius: 4px;
+    color: #888;
+    transition: 0.4s;
+    height: 48px;
+    line-height: 28px;
+    overflow: hidden;
+}
+.account-type label {
+    border-radius: 3px;
+    border: none;
+    background-color: #f2f2f2;
+    width: 100%;
+}
+.ripple-effect-dark, .ripple-effect {
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+}
+
+.account-type {
+    display: flex;
+    width: calc(100% + 20px);
+    margin: 0 0 20px 0;
+}
+
+.has-error {
+    border: 1px solid red !important;
+}
+.round_btn {
+    border-top-left-radius: 100px !important;
+    border-bottom-left-radius: 100px !important;
+    border-top-right-radius: 100px !important;
+    border-bottom-right-radius: 100px !important;
+}
+
+.account-type input.account-type-radio:checked ~ label {
+    color: #fff;
+    background-color: #FF6600;
+}
+#eyeconfirmPwd {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  font-size: 20px;
+  color: #adadad;
+}
+#eyePwd {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  font-size: 20px;
+  color: #adadad;
+}

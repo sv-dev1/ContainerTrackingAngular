@@ -1,0 +1,40 @@
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td.mat-cell
+{
+  padding:5px;
+}
+th {
+  width: 20%;
+  color: black;
+  font-weight: bold;
+  font-size: 15px;
+  vertical-align: middle;
+}
+
+.example-second-header-row {
+  font-style: italic;
+}
+
+.example-first-footer-row {
+  font-weight: bold;
+}
+
+.example-second-footer-row td {
+  color: #900000;
+}
+
+.mat-column-action {
+  flex: 0 0 100px;
+}
+.mat-table-grid {
+  display: inline-block;
+  width: 100%;
+}

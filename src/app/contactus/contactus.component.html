@@ -1,0 +1,109 @@
+<app-headersection></app-headersection>
+
+<div class="contact-page-heading">
+  <div class="container">
+    <div class="heading-page-blk">
+      <h3>CONTACT</h3>
+      <div class="breadcrumb-blk">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Contact</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="contact-page">
+  <div class="container">
+    <!--<form [formGroup]="profileForm" (ngSubmit)="onFormSubmit(profileForm.value)">-->
+      <form [formGroup]="profileForm" (ngSubmit)="onFormSubmit()">
+        <div class="left-form">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                  <div class="form-group">
+                    <div class="input-group-icon">
+                      <input type="text" class="form-control" formControlName="Name" id="examplename" aria-describedby="emailHelp"
+                             placeholder="Your Name">
+                      <i class="mdi mdi-account-outline"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                  <div class="form-group">
+                    <div class="input-group-icon">
+                      <input type="email" formControlName="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                             placeholder="Email Address">
+                      <i class="mdi mdi-email-outline"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <div class="form-group">
+                    <div class="input-group-icon">
+                      <input type="text" class="form-control" formControlName="Subject" id="exampleSubject" aria-describedby="emailHelp"
+                             placeholder="Subject">
+                      <i class="mdi mdi-file-documents"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+              <div class="right-form">
+                <textarea style=" height:116px;" formControlName="Message" id="txtMesssage" placeholder="Message" class="form-control"></textarea>
+              </div>
+            </div>
+          </div>
+          <!--<div class="submit-message">
+        <a class="nav-link btn-link orange-bg" href="login.html">Submit Message</a>
+      </div>-->
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-0 mt-3">
+            <div class="form-group-btn text-right">
+              <button [disabled]="!profileForm.valid" type="submit" class="btn btn-success">Submit Message</button>
+            </div>
+          </div>
+        </div>
+      </form>
+</div>
+</div>
+<div class="map-section">
+  <div class="custom-container">
+    <div class="inner-map-section">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+          <div class="left-map-sec">
+            <div class="media">
+              <span><i class="mdi mdi-map-marker"></i></span>
+              <div class="media-body">
+                <p>Automatikvej 1,2860 Seoborg , Denmark</p>
+              </div>
+            </div>
+            <div class="media">
+              <span><i class="mdi mdi-phone"></i></span>
+              <div class="media-body">
+                <p>(0045)2250 3066</p>
+              </div>
+            </div>
+            <div class="media">
+              <span><i class="mdi mdi-email-outline"></i></span>
+              <div class="media-body">
+                <p>admin@containertracking.dk</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+          <div class="street-view">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2246.129436905672!2d12.490622315648837!3d55.73887998054963!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x465251e43f0bce69%3A0x54bad0bdb74e27d5!2sAutomatikvej+1%2C+2860+S%C3%B8borg%2C+Denmark!5e0!3m2!1sen!2sin!4v1544591551825"
+                    width="600" height="450" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footersection></app-footersection>

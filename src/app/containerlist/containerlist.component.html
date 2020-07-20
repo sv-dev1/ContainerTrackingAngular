@@ -1,0 +1,1424 @@
+<app-admin_header></app-admin_header>
+
+<div class="body-content">
+  <div class="profile-section pt-5 pb-5">
+    <div class="container-fluid">
+      <!--<div class="all-heading">
+    <h3>All Containers</h3>
+  </div>-->
+      <div class="top-list-table">
+        <div class="top-heading-section">
+          <div class="heading-text">
+            <h5>List Overview</h5>
+          </div>
+        </div>
+        <!-- Add Loader -->
+        <ng4-loading-spinner> </ng4-loading-spinner>
+        <!-- end loader -->
+        <div class="shipment-overview">
+          <div class="row m-0">
+            <div class="col-md-3">
+              <div class="inner-shipment">
+                <p>Shipment Overview for {{userName}}</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="inner-shipment">
+                <select id="containerDrop" [(ngModel)]="selected" (change)="onSelect($event)">
+                  <option [selected]="k.userid===0" value={{k.userid}}
+                          *ngFor="let k of dropdownElements;let i = index">
+                    {{k.name}}
+                  </option>
+                </select>
+                <button type="button" class="btn btn-sm" data-toggle="modal" data-target="#ModelAddList">Add List</button>
+                <button type="button" (click)="showCompanypopup()" class="btn btn-sm" data-toggle="modal">Edit list</button>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="inner-shipment add-ship text-right">
+                <button type="button" class="btn btn-sm " data-toggle="modal" data-target="#container">Add shipment</button>
+
+                <!--<button href="#container" type="button" class="btn">Add shipment</button>-->
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="shipment-gridarea">
+
+          <div class="dx-viewport demo-container">
+            <div id="gridContainer">
+              <select class="form-control" style="max-width: 20%;float:left;" id="containerDrop" [(ngModel)]="selected1" (ngModelChange)="onSelectrecords(selected1)">
+                <option selected="selected" [ngValue]="10">10</option>
+                <option [ngValue]="50">50</option>
+                <option [ngValue]="100">100</option>
+                <option [ngValue]="500">500</option>
+              </select>
+              <input class="form-control" style="max-width:25%;float:right;" type="text" [(ngModel)]="Shipmentref" placeholder="Search"
+                     aria-label="Search">
+
+              <collapsible-table class="table" [type]="'expandable'">
+
+                <thead>
+                  <collapsible-table-row>
+
+                    <th *ngIf="shipment == 1" class="pointer" style="cursor:pointer;" (click)="sort('po_no')">
+                      Shipment Ref.
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'po_no', 'fa-sort-asc': (column == 'po_no' && isDesc), 'fa-sort-desc': (column == 'po_no' && !isDesc) }"
+                         aria-hidden="true"></i>
+                    </th>
+                    <th width="200" *ngIf="origin == 1" class="pointer" style="cursor:pointer;" (click)="sort('origin')">
+                      Origin
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'origin', 'fa-sort-asc': (column == 'origin' && isDesc), 'fa-sort-desc': (column == 'origin' && !isDesc) }"
+                         aria-hidden="true"></i>
+                    </th>
+                    <th *ngIf="destination == 1" class="pointer" style="cursor:pointer;" (click)="sort('destination')">
+                      Destination
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'destination', 'fa-sort-asc': (column == 'destination' && isDesc), 'fa-sort-desc': (column == 'destination' && !isDesc) }"
+                         aria-hidden="true"></i>
+                    </th>
+                    <th *ngIf="containernumber == 1" class="pointer" style="cursor:pointer;" (click)="sort('container_no')">
+                      Container No.
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'container_no', 'fa-sort-asc': (column == 'container_no' && isDesc), 'fa-sort-desc': (column == 'container_no' && !isDesc) }"
+                         aria-hidden="true"></i>
+                    </th>
+                    <th *ngIf="departure == 1" class="pointer" style="cursor:pointer;" (click)="sort('departure')">
+                      Departure
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'departure', 'fa-sort-asc': (column == 'departure' && isDesc), 'fa-sort-desc': (column == 'departure' && !isDesc) }"
+                         aria-hidden="true"></i>
+                    </th>
+                    <th *ngIf="arrival == 1" class="pointer" style="cursor:pointer;" (click)="sort('first_arrival')">
+                      First Arrival
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'first_arrival', 'fa-sort-asc': (column == 'first_arrival' && isDesc), 'fa-sort-desc': (column == 'first_arrival' && !isDesc) }"
+                         aria-hidden="true"></i>
+                    </th>
+                    <th *ngIf="firstarrival == 1" class="pointer" style="cursor:pointer;" (click)="sort('arrival')">
+                      Final Arrival
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'arrival', 'fa-sort-asc': (column == 'arrival' && isDesc), 'fa-sort-desc': (column == 'arrival' && !isDesc) }"
+                         aria-hidden="true"></i>
+                    </th>
+
+                    <th *ngIf="shipingline == 1" class="pointer" style="cursor:pointer;" (click)="sort('shipping_line')">
+                      Shipping Line
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'CategoryName', 'fa-sort-asc': (column == 'CategoryName' && isDesc), 'fa-sort-desc': (column == 'CategoryName' && !isDesc) }"
+                         aria-hidden="true"></i>
+                    </th>
+                    <!-- <th *ngIf="vesselname == 1" class="pointer" style="cursor:pointer;" (click)="sort('vesselname')">
+                  VesselName
+                  <i class="fa" [ngClass]="{'fa-sort': column != 'CategoryName', 'fa-sort-asc': (column == 'CategoryName' && isDesc), 'fa-sort-desc': (column == 'CategoryName' && !isDesc) }"
+                     aria-hidden="true"></i>
+                </th> -->
+
+                    <th *ngIf="daysbeforearrival == 1" class="pointer" style="cursor:pointer;" (click)="sort('daysbeforearrival')">
+                      Until arrival
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'CategoryName', 'fa-sort-asc': (column == 'CategoryName' && isDesc), 'fa-sort-desc': (column == 'CategoryName' && !isDesc) }"
+                         aria-hidden="true"></i>
+                    </th>
+                    <th *ngIf="earlydelay == 1" class="pointer text-left" style="cursor:pointer;" (click)="sort('CategoryName')">
+                      -Early/ +Delay
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'CategoryName', 'fa-sort-asc': (column == 'CategoryName' && isDesc), 'fa-sort-desc': (column == 'CategoryName' && !isDesc) }"
+                         aria-hidden="true"></i>
+                    </th>
+                    <th class="pointer" style="cursor:pointer;">
+                      Details
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'CategoryName', 'fa-sort-asc': (column == 'CategoryName' && isDesc), 'fa-sort-desc': (column == 'CategoryName' && !isDesc) }"
+                         aria-hidden="true"></i>
+                    </th>
+                    <th class="pointer" style="cursor:pointer;" (click)="sort('CategoryName')">
+                      Action
+                      <i class="fa" [ngClass]="{'fa-sort': column != 'CategoryName', 'fa-sort-asc': (column == 'CategoryName' && isDesc), 'fa-sort-desc': (column == 'CategoryName' && !isDesc) }"
+                         aria-hidden="true"></i>
+                    </th>
+                  </collapsible-table-row>
+                </thead>
+
+                <tbody>
+                  <collapsible-table-row class="tblRow" *ngFor="let el of selectedData | searching:Shipmentref | paginate: config | sorting: {property: column, direction: direction} ;let i = index" [detail]="detail1" (click)="onItemClick($event, el,el.origin)">
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && shipment == 1"><i class="mdi mdi-chevron-right"></i>{{el.po_no}}</td>
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && origin == 1">{{el.origin}}</td>
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && destination == 1">{{el.destination}}</td>
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && containernumber == 1"><a style="color:#065798;font-weight: 500;" target="_blank" href={{el.shipping_link}}{{el.container_no}}>{{el.container_no}}</a></td>
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && departure == 1">{{el.departure}}</td>
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && firstarrival == 1 && el.first_arrival!=null">{{el.first_arrival}}</td>
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && firstarrival == 1 && el.first_arrival==null">-</td>
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && arrival == 1">{{el.arrival}}</td>
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && shipingline == 1">{{el.shipping_line}}</td>
+                    <!-- <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && vesselname == 1">{{el.vesselname}}</td> -->
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && daysbeforearrival == 1">{{el.daysbeforearrival}}</td>
+
+                    <td class="pointer-none text-left" *ngIf="el.origin!='DATA NOT FOUND' && earlydelay == 1"><span *ngIf="checkdate(el.first_arrival,el.arrival) != 0"><img width="25px" src="../../assets/images/clock.png"></span><span *ngIf="checkdate(el.first_arrival,el.arrival) == 0"><img width="20px" src="../../assets/images/check icon.png"></span> {{checkdate(el.first_arrival,el.arrival)}} days</td>
+                    <td *ngIf="el.origin!='DATA NOT FOUND'"><i style="font-size:20px;pointer-events: none;" class="mdi mdi-plus-circle-outline"></i></td>
+                    <td *ngIf="el.origin=='DATA NOT FOUND'" attr.colspan="{{colCount}}">
+                      <span style="color:brown;" data-toggle="modal" data-target="#shipmentLinks"> Container under the requested number <b>{{el.container_no}}</b> cannot be displayed correctly as either because the information entered is incorrect or because our system cannot find the container number.</span>
+                    </td>
+
+
+
+
+
+                    <div>
+                      <div style="text-align: center;" class="toggle-hover">
+                        <button type="button" class="btn" data-target="#detail2" style="height: 30px; margin-top: 0px;border:0px;">...</button>
+                        <div id="detail2" class="shpment">
+                          <button type="button" class="btn" data-toggle="modal" data-target="#ShipmentRef" style="height: 30px; margin-top: 0px;border:0px;" (click)="updateShipment(el.po_no,el.container_no,el.container_type,el.shipping_line,el.user_id)">Edit</button>
+                          <button type="button" class="btn" data-toggle="modal" data-target="#editdepDates" (click)="updateDates(el.departure,el.first_arrival,el.arrival,el.container_no,el.user_id)">Edit Dates</button>
+                          <button type="button" class="btn" data-toggle="modal" data-target="#changeUserList" (click)="updateList(el.company_name,el.container_no,el.po_no,el.user_id)">Move to list</button>
+                          <button type="button" class="btn" (click)="deleteContainer(el.container_no,el.user_id)">Delete</button>
+                        </div>
+                      </div>
+                    </div>
+                    <collapsible-table-row-detail #detail1 class="table">
+                      <table class="table" *ngIf="el.origin!='DATA NOT FOUND'" style="display: block; margin-top: 60px;width:100%;">
+                        <thead>
+                          <tr>
+                            <th *ngIf="origin == 1">From <br><span><b>{{el.origin}}</b></span></th>
+                            <th *ngIf="destination == 1">To <br><span><b>{{el.destination}}</b></span></th>
+                            <th *ngIf="containernumber == 1">Container Number <br><span><b>{{el.container_no}}</b></span></th>
+                            <th *ngIf="transittime == 1">Expected Trainsit Time<br> <span><b>{{checkdate1(el.departure, el.first_arrival)}}</b></span></th>
+                            <th *ngIf="transittime == 1">Actual Trainsit Time <br> <span><b>{{checkdate1(el.departure,el.arrival)}}</b></span></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td style="float:left;">Container details<br><span class="for-color"><b>{{el.container_no}}</b></span>
+                            </td>
+                            <td *ngIf="contypebool == 1">Container type size<br><span class="for-color"><b>{{el.container_type}}</b></span></td>
+                            <td *ngIf="arrival == 1">
+                              Estimated Arrival Date<br><span class="for-color">
+                                <b>{{el.arrival}}</b>
+
+                              </span>
+                            </td>
+                            <td *ngIf="destination == 1">
+                              Last Location<br><span class="for-color">
+                                <b> {{el.destination}}</b>
+
+                                <b>  {{el.transit_ports}}</b>
+                                <br /><br /> {{el.getout_date}}
+                              </span>
+                            </td>
+                            <td><!--<i class="mdi mdi-account"></i>--></td>
+                          </tr>
+                          <tr>
+                            <td colspan="2" class="custom_td" style="width:56%;">
+                              <div class="for-date-scroll">
+                                <div class="for-date" *ngIf="el.Name0 != null">
+                                  <b>{{el.Name0}} - {{el.Country0}}</b>
+                                  <br />
+
+                                  <span [ngClass]="{'completed': val1==0 ,'current-location':val1==1 && valConst==1}" *ngIf="el.date00 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date00}} {{el.description00}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel00}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type00 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type00 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type00 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type00 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val1==0 ,'current-location':val1==1 && valConst==1}" *ngIf="el.date01 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date01}} {{el.description01}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel01}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type01 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type01 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type01 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type01 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+
+                                  </span>
+                                  <span [ngClass]="{'completed': val1==0 ,'current-location':val1==1 && valConst==1}" *ngIf="el.date02 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date02}} {{el.description02}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel02}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type02 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type02 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type02 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type02 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val1==0 ,'current-location':val1==1 && valConst==1}" *ngIf="el.date03 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date03}} {{el.description03}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel03}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type03 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type03 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type03 == 3" style="float:right;">
+                                        <img class="span-icon-right" style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type03 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val1==0 ,'current-location':val1==1 && valConst==1}" *ngIf="el.date04 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date04}} {{el.description04}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel04}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type04 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type04 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type04 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type04 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val1==0 ,'current-location':val1==1 && valConst==1}" *ngIf="el.date05 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date05}} {{el.description05}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel05}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type05 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type05 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type05 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type05 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val1==0 ,'current-location':val1==1 && valConst==1}" *ngIf="el.date06 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date06}} {{el.description06}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel06}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type06 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type06 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type06 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type06 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+
+                                </div>
+                                <div class="for-date" *ngIf="el.Name1 != null">
+
+                                  <b>{{el.Name1}} - {{el.Country1}}</b>
+                                  <br />
+
+                                  <span [ngClass]="{'completed': val2==0,'current-location':val2==1 && valConst==1}" *ngIf="el.date10 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date10}} {{el.description10}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel10}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type10 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type10 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type10 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type10 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val2==0,'current-location':val2==1 && valConst==1}" *ngIf="el.date11 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date11}} {{el.description11}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel11}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type11 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type11 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type11 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type11 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val2==0,'current-location':val2==1 && valConst==1}" *ngIf="el.date12 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date12}} {{el.description12}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel12}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type12 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type12 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type12 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type12 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val2==0,'current-location':val2==1 && valConst==1}" *ngIf="el.date13 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date13}} {{el.description13}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel13}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type13 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type13 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type13 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type13 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val2==0,'current-location':val2==1 && valConst==1}" *ngIf="el.date14 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date14}} {{el.description14}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel14}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type14 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type14 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type14 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type14 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val2==0,'current-location':val2==1 && valConst==1}" *ngIf="el.date15 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date15}} {{el.description15}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel15}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type15 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type15 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type15 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type15 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val2==0,'current-location':val2==1 && valConst==1}" *ngIf="el.date16 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date16}} {{el.description16}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel16}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type16== 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type16 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type16 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type16 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+
+                                </div>
+                                <div class="for-date" *ngIf="el.Name2 != null">
+
+                                  <b>{{el.Name2}} - {{el.Country2}}</b>
+                                  <br />
+
+                                  <span [ngClass]="{'completed': val3==0,'current-location':val3==1 && valConst!=0}" *ngIf="el.date20 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date20}} {{el.description20}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel20}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type20 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type20 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type20 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type20 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val3==0,'current-location':val3==1 && valConst!=0}" *ngIf="el.date21 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date21}} {{el.description21}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel21}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type21 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type21 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type21 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type21 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val3==0,'current-location':val3==1 && valConst!=0}" *ngIf="el.date22 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date22}} {{el.description22}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel22}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type22 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type22 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type22 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type22 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val3==0,'current-location':val3==1 && valConst!=0}" *ngIf="el.date23 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date23}} {{el.description23}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel23}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type23 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type23 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type23 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type23 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val3==0,'current-location':val3==1 && valConst!=0}" *ngIf="el.date24 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date24}} {{el.description24}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel24}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type24 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type24 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type24 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type24 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val3==0,'current-location':val3==1 && valConst!=0}" *ngIf="el.date25 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date25}} {{el.description25}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel25}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type25 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type25 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type25 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type25 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val3==0,'current-location':val3==1 && valConst!=0}" *ngIf="el.date26 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date26}} {{el.description26}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel26}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type26 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type26 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type26 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type26 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+
+                                </div>
+                                <div class="for-date" *ngIf="el.Name3 != null">
+
+                                  <b>{{el.Name3}} - {{el.Country3}}</b>
+                                  <br />
+
+                                  <span [ngClass]="{'completed': val4==0,'current-location':val4==1 && valConst!=0}" *ngIf="el.date30 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date30}} {{el.description30}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel30}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type30 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type30 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type30 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type30 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val4==0,'current-location':val4==1 && valConst!=0}" *ngIf="el.date31 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date31}} {{el.description31}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel31}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type31 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type31 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type31 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type31 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val4==0,'current-location':val4==1 && valConst!=0}" *ngIf="el.date32 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date32}} {{el.description32}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel32}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type32 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type32 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type32 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type32 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+
+                                  <span [ngClass]="{'completed': val4==0,'current-location':val4==1 && valConst!=0}" *ngIf="el.date33 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date33}} {{el.description33}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel33}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type33 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type33 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type33 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type33 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val4==0,'current-location':val4==1 && valConst!=0}" *ngIf="el.date34 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date34}} {{el.description34}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel34}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type34 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type34 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type34 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type34 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val4==0,'current-location':val4==1 && valConst!=0}" *ngIf="el.date35 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date35}} {{el.description35}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel35}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type35 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type35 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type35 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type35 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span [ngClass]="{'completed': val4==0,'current-location':val4==1 && valConst!=0}" *ngIf="el.date36 != null">
+                                    <div class="label-icon-left">
+                                      {{el.date36}} {{el.description36}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel36}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type36 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type36 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type36 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type36 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+
+                                </div>
+                                <div class="for-date" *ngIf="el.Name4 != null">
+
+                                  <b>{{el.Name4}} - {{el.Country4}}</b>
+                                  <br />
+
+                                  <span *ngIf="el.date40 != null" [ngClass]="{'completed': val5==0,'current-location':val5==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date40}} {{el.description40}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel40}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type40 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type40 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type40 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type40 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span *ngIf="el.date41 != null" [ngClass]="{'completed': val5==0,'current-location':val5==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date41}} {{el.description41}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel41}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type41 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type41 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type41 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type41 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span *ngIf="el.date42 != null" [ngClass]="{'completed': val5==0,'current-location':val5==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date42}} {{el.description42}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel42}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type42 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type42 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type42 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type42 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span *ngIf="el.date43 != null" [ngClass]="{'completed': val5==0,'current-location':val5==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date43}} {{el.description43}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel43}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type43 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type43 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type43 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type43 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span *ngIf="el.date44 != null" [ngClass]="{'completed': val5==0,'current-location':val5==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date44}} {{el.description44}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel44}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type44 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type44 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type44 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type44 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span *ngIf="el.date45 != null" [ngClass]="{'completed': val5==0,'current-location':val5==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date45}} {{el.description45}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel45}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type45 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type45 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type45 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type45 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span *ngIf="el.date46 != null" [ngClass]="{'completed': val5==0,'current-location':val5==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date46}} {{el.description46}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel46}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type46 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type46== 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type46 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type46 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+
+                                </div>
+                                <div class="for-date" *ngIf="el.Name5 != null">
+
+                                  <b>{{el.Name5}} - {{el.Country5}}</b>
+                                  <br />
+
+                                  <span *ngIf="el.date50 != null" [ngClass]="{'completed': val6==0,'current-location':val6==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date50}} {{el.description50}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel50}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type50 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type50 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type50 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type50 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+
+                                  <span *ngIf="el.date51 != null" [ngClass]="{'completed': val6==0,'current-location':val6==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date51}} {{el.description51}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel51}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type51 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type51 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type51 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type51 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+
+                                  <span *ngIf="el.date52 != null" [ngClass]="{'completed': val6==0,'current-location':val6==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date52}} {{el.description52}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel52}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type52 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type52 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type52 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type52 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span *ngIf="el.date53 != null" [ngClass]="{'completed': val6==0,'current-location':val6==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date53}} {{el.description53}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel53}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type53 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type53 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type53 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type53 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span *ngIf="el.date54 != null" [ngClass]="{'completed': val6==0,'current-location':val6==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date54}} {{el.description54}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel54}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type54 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type54 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type54 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type54 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span *ngIf="el.date55 != null" [ngClass]="{'completed': val6==0,'current-location':val6==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date55}} {{el.description55}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel55}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type55 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type55 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type55 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type55 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-opp.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                  <span *ngIf="el.date56 != null" [ngClass]="{'completed': val6==0,'current-location':val6==1 && valConst!=0}">
+                                    <div class="label-icon-left">
+                                      {{el.date56}} {{el.description56}}
+                                    </div>
+                                    <div class="label-icon-right">
+                                      <label *ngIf="vesselname == 1">{{el.vessel56}}</label>
+                                      <small class="span-icon-right" *ngIf="el.type56 == 1" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/train.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type56 == 2" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/plane.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type56 == 3" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/ship-icon.png'>
+                                      </small>
+                                      <small class="span-icon-right" *ngIf="el.type56 == 4" style="float:right;">
+                                        <img style="border-radius:50%;" src='/assets/images/truck-icon.png'>
+                                      </small>
+                                    </div>
+                                  </span>
+                                </div>
+                              </div>
+                            </td>
+
+                            <td style="width:1px" style="display:none;"></td>
+                            <td colspan="3" style="width:60%;">
+                              <div>
+                                <agm-map style="width:100%;" [latitude]="ConvertString(last_Lat)" [longitude]="ConvertString(last_Lng)" [scrollwheel]="true" [fullscreenControl]="true" [mapTypeControl]="true" [zoom]="8">
+                                  <agm-marker [latitude]="last_Lat" [longitude]="last_Lng"></agm-marker>
+
+                                </agm-map>
+
+
+                              </div>
+                            </td>
+                          </tr>
+
+                        </tbody>
+                      </table>
+                      <!--<div class="table" *ngIf="el.origin=='DATA NOT FOUND'" style="display: block; margin-top: 60px;width:100%;">
+                    <div class="custm_table">
+                      <h1>Oops</h1>
+                      <br />
+                      Thank you for using our service. Container under the requested number cannot be displayed correctly as either because the information entered is incorrect or because our system cannot find the container number.
+                    </div>
+                  </div>-->
+                    </collapsible-table-row-detail>
+                    <!--</div>
+                </div>-->
+
+
+
+
+
+                  </collapsible-table-row>
+
+                </tbody>
+
+              </collapsible-table>
+              <pagination-controls class="my-pagination" class="my-pagination"
+                                   (pageChange)="pageChanged($event)"></pagination-controls>
+
+
+
+            </div>
+            <button type="button" (click)="exportAsXLSX()" class="btnDownload" id="btnDownloadExcelData">Download to excel</button>
+          </div>
+
+        </div>
+      </div>
+      <div id="container" class="modal fade custm_modal_header" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <label>Add Shipment</label>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <div class="row">
+                  <p id="addlist_error" style="display: none;color:red;font-size:large;padding:5px;">* are required fields</p>
+                </div>
+
+
+              </div>
+
+
+              <div class="form-group">
+                <label for="container_no" id="con_text">Container No : <span style="color: red"> *</span></label>
+                <input type="text" class="form-control" id="container_no" name="container_no">
+              </div>
+              <div class="form-group">
+                <label for="shipping_line" id="con_text">Shipping Line : </label>
+                <select class="form-control" style="width:200px;" id="shippingLine" [(ngModel)]="selecShippingLine" (ngModelChange)="onSelectshippingLine(selecShippingLine)">
+                  <option [ngValue]="k.Name" *ngFor="let k of allShippingLines;let i = index">{{k.Name}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="po_no">Shipment ref. : <span style="color: red"> *</span></label>
+                <input type="text" class="form-control" id="po_no" name="po_no">
+              </div>
+              <div class="form-group">
+                <label for="container_no" id="con_text">Container Type :</label>
+                <select class="form-control" style="width:200px;" id="ddcontainerType" [(ngModel)]="selectType" (ngModelChange)="onSelecttype(selectType)">
+                  <option selected="selected">20' Dry container</option>
+                  <option>40' Dry container</option>
+                  <option>40' Open top</option>
+                  <option>40' High cube</option>
+                  <option>45' High cube</option>
+                  <option>20' Reefer</option>
+                  <option>40' Reefer</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="container_no" id="con_text">Company List :  <span style="color: red"> *</span></label>
+                <div *ngFor="let s of usersList; let i=index">
+                  <input type="checkbox" value={{s}} name={{s}} (change)="updateshipmentUserslist($event)"> {{s}}
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer inner-shipment">
+              <button (click)="addShipsgocontainer()" type="button" class="btn btn_add_container">Submit</button>
+              <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="EditDeleteList" class="modal fade custm_modal_header" role="dialog">
+        <div class="modal-dialog">
+
+          <!--Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <label>Edit / Delete List</label>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <p id="addc_list_error" style="display: none;color:red;font-size:large;">* are required fields</p>
+              <p id="addc_list_error2" style="display: none;color:red;font-size:large;">Email or Company Name  already exists, if forgot password send email to jesper@containertracking.dk</p>
+              <p id="addc_list_msg" style="display: none;color:green;font-size:large;">List added successfully</p>
+              <form name="lcom_form" id="lcom_form" action="" method="post" onsubmit="return false;">
+
+                <div class="form-group">
+                  <label for="list_name">List : <span style="color: red"> *</span></label>
+                  <input type="text" class="form-control" value={{editcompany_name}} id="cmp_name" name="cmp_name">
+                </div>
+
+              </form>
+            </div>
+            <div class="modal-footer inner-shipment">
+              <button type="button" (click)="deleteCompanyDetails()" class="btn">Delete</button>
+              <button type="button" (click)="updateCompanyDetails()" class="btn">Submit</button>
+              <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div id="editdepDates" class="modal fade custm_modal_header" role="dialog">
+        <div class="modal-dialog">
+
+          <!--Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <label>Edit Dates</label>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <p id="add_list_error1" style="display: none;color:red;font-size:large;">Departure, First Arrival and Final Arrival are required fields</p>
+              <p id="add_list_msg1" style="display: none;color:green;font-size:large;">Updations  done successfully</p>
+              <form name="list_form" id="list_form" action="" method="post" onsubmit="return false;">
+
+                <div class="form-group">
+
+                  <label for="list_name">Departure :</label>
+                  <input type="date" class="form-control" id="txt_departure" [ngModel]="deprture | date:'yyyy-MM-dd'" (change)="ondeptChange($event)" name="deprture" />
+                </div>
+                <div class="form-group">
+                  <label for="list_email">First Arrival :</label>
+                  <input type="date" class="form-control" id="txt_firstarrival" [ngModel]="first_arrival | date:'yyyy-MM-dd'" (change)="onfirstarrivalChange($event)" name="first_arrival" />
+                </div>
+                <div class="form-group">
+                  <label for="list_email">Final Arrival :</label>
+                  <input type="date" class="form-control" id="txt_finalarrival" [ngModel]="final_arrival | date:'yyyy-MM-dd'" (change)="onfinalarrivalChange($event)" name="final_arrival" />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer inner-shipment">
+              <button type="button" (click)="updatecontainerDates()" class="btn">Submit</button>
+              <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div id="ModelAddList" class="modal fade custm_modal_header" role="dialog">
+        <div class="modal-dialog">
+
+          <!--Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <label>Add Company</label>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <p id="add_list_error" style="display: none;color:red;font-size:large;">* are required fields</p>
+              <p id="add_list_msg" style="display: none;color:green;font-size:large;">List added successfully</p>
+              <p id="add_list_error2" style="display: none;color:red;font-size:large;">Email or Company Name already exists, if forgot password send email to jesper@containertracking.dk</p>
+              <form name="list_form" id="list_form" action="" method="post" onsubmit="return false;">
+
+                <div class="form-group">
+                  <label for="list_name">Company Name : <span style="color: red"> *</span></label>
+                  <input type="text" class="form-control" id="list_name" name="list_name">
+                </div>
+                <div class="form-group">
+                  <label for="list_email">Email : <span style="color: red"> *</span></label>
+                  <input type="text" class="form-control" id="list_email" name="list_email">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer inner-shipment">
+              <button type="button" (click)="submitList()" class="btn">Submit</button>
+              <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div id="ShipmentRef" class="modal fade custm_modal_header" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <label>Update Shipment</label>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <div class="row">
+                  <p id="addlist_errorShip" style="display: none;color:red;font-size:large;padding:5px;">* are required fields</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="shipping_line" id="con_text">Shipping Line : </label>
+                <select class="form-control" style="width:200px;" id="shippingLine1" [(ngModel)]="selecShippingLine1" (ngModelChange)="onSelectshippingLine1(selecShippingLine1)">
+                  <option [ngValue]="k.Name" *ngFor="let k of allShippingLines;let i = index">{{k.Name}}</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="po_no">Shipment ref. : <span style="color: red"> *</span></label>
+                <input type="text" value="{{container_model_number}}" class="form-control" id="txtcno" name="c_no" style="display:none">
+                <input type="text" value="{{po_model_number}}" class="form-control" id="txtpono" name="po_no">
+              </div>
+              <div class="form-group">
+                <label for="po_no">Container Type :</label>
+                <select class="form-control" style="width:200px;" id="ddcontainerType" [(ngModel)]="containertype" (ngModelChange)="onSelecttype1(containertype)">
+                  <option selected="selected">20' Dry container</option>
+                  <option>40' Dry container</option>
+                  <option>40' Open top</option>
+                  <option>40' High cube</option>
+                  <option>45' High cube</option>
+                  <option>20' Reefer</option>
+                  <option>40' Reefer</option>
+                </select>
+              </div>
+
+
+            </div>
+            <div class="modal-footer inner-shipment">
+              <button type="button" class="btn" (click)="updateReference()">Submit</button>
+              <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="shipmentLinks" class="modal fade custm_modal_header" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+
+              <div class="form-group">
+                <span> Unfortunately, the container cannot be tracked automatically and we recommend that you delete this container and try to track the container together with the name of the shipping line. You are also welcome to send an email to our support: <a href="mailto:jesper@containertracking.dk" target="_top">jesper@containertracking.dk </a>and we will investigate the cause.  </span>
+                <br />
+                <br />
+                <h6> Try to select the following shipping company and search again  </h6>
+                <br />
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 about_left_form">
+
+
+                  <a target="_blank" href='https://www.apl.com/ebusiness/tracking'> APL</a>
+                  <a target="_blank" href='http://www.cma-cgm.com/ebusiness/tracking'>CMA CGM</a>
+                  <a target="_blank" href='http://elines.coscoshipping.com/ebusiness/cargoTracking'>Cosco</a>
+                  <a target="_blank" href='https://www.shipmentlink.com/servlet/TDB1_CargoTracking.do'> Evergreen</a>
+                  <a target="_blank" href='https://www.hamburgsud-line.com/liner/en/liner_services/ecommerce/track_trace/index.html'> Hamburg Sued</a>
+                  <a target="_blank" href='https://www.hapag-lloyd.com/en/online-business/tracing/tracing-by-container.html'> Hapag-Lloyd</a>
+                  <a target="_blank" href='https://www.hmm21.com/cms/business/ebiz/trackTrace/trackTrace/index.jsp'> Hyundai</a>
+                  <a target="_blank" href='https://www.maersk.com/tracking/?gclid=EAIaIQobChMI4cOO7vDI4AIVhQOGCh14dg4LEAAYASABEgIZ8fD_BwE&gclsrc=aw.ds#tracking/'>  Maersk</a>
+                  <a target="_blank" href='https://www.msc.com/track-a-shipment?agencyPath=dnk'> MSC</a>
+                  <a target="_blank" href='https://ecomm.one-line.com/ecom/CUP_HOM_3301.do'>  ONE</a>
+                  <a target="_blank" href='https://www.oocl.com/eng/ourservices/eservices/cargotracking/Pages/cargotracking.aspx?site=usa&lang=eng'>  OOCL</a>
+                  <a target="_blank" href='https://www.safmarine.com/tracking/'>  Safmarine</a>
+                  <a target="_blank" href='https://my.seagoline.com/'>  Seagoline</a>
+                  <a target="_blank" href='https://my.sealand.com/tracking/?'>  Sealand</a>
+                  <a target="_blank" href='https://www.yangming.com/e-service/Track_Trace/track_trace_cargo_tracking.aspx'>  Yang Ming</a>
+                  <a target="_blank" href='https://www.zim.com/tools/track-a-shipment'>  ZIM</a>
+                  <!--<span>
+                If you want help to locate the container, you are welcome to send an email to our support and we will try to locate the container manually. email: jesper@containertracking.dk
+              </span>-->
+                </div>
+              </div>
+
+
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div id="changeUserList" class="modal fade custm_modal_header" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <label>MOVE TO LIST</label>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                Container Number : <span>{{contaienrNo}}</span><br /><br />
+                Current List : <span>{{company_name}}</span>
+                <br /><br />
+                Move to list :
+                <select id="containerDroplist" [(ngModel)]="selectedUser" (ngModelChange)="onselectUser(selectedUser)">
+                  <option [selected]=k1[0] [ngValue]="k1.userid" *ngFor="let k1 of dUserElements">
+                    {{k1.name}}
+                  </option>
+                </select>
+
+
+              </div>
+            </div>
+            <div class="modal-footer inner-shipment">
+              <button type="button" class="btn" (click)="updateUserList()">Submit</button>
+              <button type="button" class="btn" data-dismiss="modal">Close</button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <app-footersection></app-footersection>

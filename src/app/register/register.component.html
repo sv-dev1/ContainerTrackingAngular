@@ -1,0 +1,230 @@
+<app-headersection></app-headersection>
+<form [formGroup]="profileForm" (ngSubmit)="onFormSubmit()">
+  <div class="body-content">
+    <div class="profile-section pt-5 pb-5">
+      <div class="container">
+        <div class="top-heading-section">
+          <div class="heading-text">
+            <h5><i class="mdi mdi-account"></i> Registration Form</h5>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="row m-0 pt-4">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-form-group">
+              <div class="form-section-heading pb-2">
+                <h4><i class="mdi mdi-format-list-bulleted"></i>Personal Information</h4>
+              </div>
+            </div>
+            <div class="col-xs-12 pt-0 pl-4 pr-4 pb-4">
+              
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                    <label class="mt-3">User type</label>
+                  </div>
+                  <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                   
+                    <div class="input-group-gender">
+                      <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                          <div class="form-group-radio">
+                            <input type="radio" name="grp1" value="2" (click)="selectChangeHandler1(2)" class="form-check-input" id="exampleRadio1" checked>
+                            <label class="form-radio-label" for="exampleRadio1"> Transport company</label>
+                          </div>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6 col-lg-6">
+                          <div class="form-group-radio">
+                            <input type="radio" name="grp1" value="3" (click)="selectChangeHandler1(3)" class="form-check-input" id="exampleRadio2">
+                            <label class="form-radio-label" for="exampleRadio2"> Cargo Owner</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                    <label class="mt-2">First Name</label>
+                  </div>
+                  <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                    <input type="text" formControlName="FirstName" class="form-control" id="txtFirst" placeholder="Enter first name...">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                    <label class="mt-2">Last Name</label>
+                  </div>
+                  <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                    <input type="text" formControlName="LastName" class="form-control" id="txtLast" placeholder="Enter last name...">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                    <label class="mt-2">Email</label>
+                  </div>
+                  <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                    <input type="text" formControlName="Email" class="form-control" id="txtEmail" placeholder="Enter email...">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                    <label class="mt-2">Confirm Email</label>
+                  </div>
+                  <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                    <input type="password" formControlName="ConfirmEmail" class="form-control" id="txtconfirmEmail" placeholder="Enter email...">
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                    <label class="mt-2">Password</label>
+                  </div>
+                  <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                    <input type="password" formControlName="password" class="form-control" id="txtPwd" placeholder="Enter password...">
+                    <i id="eyePwd" (click)="showhide()" class="mdi mdi-eye"></i>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                    <label class="mt-2">Confirm Password</label>
+                  </div>
+                  <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                    <input type="password" formControlName="confirmPassword" class="form-control" id="txtConfirmpwd" placeholder="Enter password...">
+                    <i id="eyeconfirmPwd" (click)="showhide1()" class="mdi mdi-eye"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+          </div>
+
+        </div>
+        <div class="top-heading-section mt-5">
+          <div class="heading-text">
+            <h5><i class="mdi mdi-city"></i> Company Details</h5>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="col-xs-12 p-4">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">Company Name</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                  <input type="text" formControlName="companyname" class="form-control" id="txtCompanyname" placeholder="Enter company name...">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">Address</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                  <input type="text" formControlName="address" class="form-control" id="txtAdd" placeholder="Enter address...">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">Zip Code</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                  <input type="text" formControlName="zipcode" class="form-control" id="txtZip" placeholder="Enter zip code...">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">City Name</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                  <input type="text" formControlName="city" class="form-control" id="txtcity" placeholder="Enter city...">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">Country Name</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                  <input type="text" formControlName="country" class="form-control" id="txtcountry" placeholder="Enter country...">
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">Country code + Phone No</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                  <div class="row m-0">
+                    <div class="col-xs-5 col-lg-3 p-0">
+                      <input type="text" formControlName="countrycode" class="form-control" id="txtcountrycode" placeholder="Enter country code...">
+                    </div>
+                    <div class="col-xs-7 col-lg-9 p-0">
+                      <input type="text" formControlName="phnumber" class="form-control" id="txtph" placeholder="Enter phone number...">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">VAT</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                  <input type="text" formControlName="vat" class="form-control" id="txtvat" placeholder="Enter vat...">
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div class="form-group-btn text-right">
+                <button [disabled]="!profileForm.valid" type="submit" class="btn btn-success">Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--<div class="top-heading-section mt-5">
+          <div class="heading-text">
+            <h5><i class="mdi mdi-cash"></i> Credits</h5>
+          </div>
+        </div>-->
+        <!--<div class="form-section">
+          <div class="col-xs-12 p-4">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">Available Containers</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7 form-select-group">
+                  <input type="text" formControlName="Containers" class="form-control" id="txtContain" placeholder="Enter containers...">
+                </div>
+              </div>
+            </div>
+            
+          </div>
+
+          </div>-->
+        </div>
+      </div>
+  </div>
+</form>
+<app-footersection></app-footersection>

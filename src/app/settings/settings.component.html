@@ -1,0 +1,405 @@
+<app-innerheadersection></app-innerheadersection>
+<!-- profileForm.value -->
+<form [formGroup]="profileForm" (ngSubmit)="onFormSubmit()">
+  <div class="body-content">
+    <div class="profile-section pt-5 pb-5">
+      <div class="container">
+        <div class="top-heading-section">
+          <div class="heading-text">
+            <h5><i class="mdi mdi-settings"></i> Settings</h5>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="row m-0 pt-4">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login-form-group">
+              <div class="form-section-heading pb-4">
+                <h4><i class="mdi mdi-format-list-bulleted"></i> My Columns</h4>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkShipmentref" (change)="chkShipmentref = !chkShipmentref"
+                  class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Shipment Ref.</label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkorigin" (change)="chkorigin = !chkorigin" class="form-check-input"
+                  id="exampleCheck2">
+                <label class="form-check-label" for="exampleCheck2">Origin</label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkcontainer_type" (change)="chkcontainer_type = !chkcontainer_type"
+                  class="form-check-input" id="exampleCheck3">
+                <label class="form-check-label" for="exampleCheck3">Container Type</label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkdestination" (change)="chkdestination = !chkdestination"
+                  class="form-check-input" id="exampleCheck4">
+                <label class="form-check-label" for="exampleCheck4">Destination</label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkocontainer_no" (change)="chkocontainer_no = !chkocontainer_no"
+                  class="form-check-input" id="exampleCheck5">
+                <label class="form-check-label" for="exampleCheck5">Container No.</label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkdeparture" (change)="chkdeparture = !chkdeparture"
+                  class="form-check-input" id="exampleCheck6">
+                <label class="form-check-label" for="exampleCheck6">Departure</label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkarrival" (change)="chkarrival = !chkarrival"
+                  class="form-check-input" id="exampleCheck7">
+                <label class="form-check-label" for="exampleCheck7">Arrival</label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkfirst_arrival" (change)="chkfirst_arrival = !chkfirst_arrival"
+                  class="form-check-input" id="exampleCheck8">
+                <label class="form-check-label" for="exampleCheck8">First Arrival</label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkshipping_line" (change)="chkshipping_line = !chkshipping_line"
+                  class="form-check-input" id="exampleCheck9">
+                <label class="form-check-label" for="exampleCheck9">Shipping Line</label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkstatus" (change)="chkstatus = !chkstatus" class="form-check-input"
+                  id="exampleCheck10">
+                <label class="form-check-label" for="exampleCheck10">Status</label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkearly_delay" (change)="chkearly_delay = !chkearly_delay"
+                  class="form-check-input" id="exampleCheck11">
+                <label class="form-check-label" for="exampleCheck11">- Early / + Delay</label>
+              </div>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkfrom_country" (change)="chkfrom_country = !chkfrom_country" class="form-check-input" id="exampleCheck12">
+                <label class="form-check-label" for="exampleCheck12">From Country</label>
+              </div>
+            </div> -->
+            <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkto_country" (change)="chkto_country = !chkto_country" class="form-check-input" id="exampleCheck13">
+                <label class="form-check-label" for="exampleCheck13">To Country</label>
+              </div>
+            </div> -->
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chktransit_time" (change)="chktransit_time = !chktransit_time"
+                  class="form-check-input" id="exampleCheck14">
+                <label class="form-check-label" for="exampleCheck14">Transit Time</label>
+              </div>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkfirst_eta" (change)="chkfirst_eta = !chkfirst_eta" class="form-check-input" id="exampleCheck15">
+                <label class="form-check-label" for="exampleCheck15">First ETA</label>
+              </div>
+            </div> -->
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkbl_reference_no"
+                  (change)="chkbl_reference_no = !chkbl_reference_no" class="form-check-input" id="exampleCheck16">
+                <label class="form-check-label" for="exampleCheck16">BLReferenceNo</label>
+              </div>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chktransit_ports" (change)="chktransit_ports = !chktransit_ports" class="form-check-input" id="exampleCheck17">
+                <label class="form-check-label" for="exampleCheck17">Transit Ports</label>
+              </div>
+            </div> -->
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkgetout_date" (change)="chkgetout_date = !chkgetout_date"
+                  class="form-check-input" id="exampleCheck18">
+                <label class="form-check-label" for="exampleCheck18">Get Out Date</label>
+              </div>
+            </div>
+            <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkempty_return_date" (change)="chkempty_return_date = !chkempty_return_date" class="form-check-input" id="exampleCheck19">
+                <label class="form-check-label" for="exampleCheck19">Empty Return Date</label>
+              </div>
+            </div> -->
+            <!-- <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkshipment_by" (change)="chkshipment_by = !chkshipment_by" class="form-check-input" id="exampleCheck20">
+                <label class="form-check-label" for="exampleCheck20">Shipment By</label>
+              </div>
+            </div> -->
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chkdays_beforeArrival"
+                  (change)="chkdays_beforeArrival = !chkdays_beforeArrival" class="form-check-input"
+                  id="exampleCheck21">
+                <label class="form-check-label" for="exampleCheck21">Until arrival</label>
+              </div>
+            </div>
+            <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 login-form-group">
+              <div class="form-group form-check">
+                <input type="checkbox" [checked]="chk_vesselName" (change)="chk_vesselName = !chk_vesselName"
+                  class="form-check-input" id="exampleCheck22">
+                <label class="form-check-label" for="exampleCheck22">Vessel Name</label>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="top-heading-section mt-5">
+          <div class="heading-text">
+            <h5><i class="mdi mdi-settings"></i> My Notification</h5>
+          </div>
+        </div>
+        <div class="form-section">
+          <div class="p-3">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">Send an email, when a container is added to the shipment overview</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7">
+                  <div class="row mr-1 ml-1">
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 pl-1 pr-1">
+                      <div class="form-group">
+                        <select [(ngModel)]='nrSelect1' [ngModelOptions]="{standalone: true}"
+                          (change)="selectChangeHandler1($event)" id="containerAdded" class="form-control">
+                          <option value="1">Yes</option>
+                          <option value="0">No</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pl-1 pr-1">
+                      <div class="form-group">
+                        <select [(ngModel)]='nrSelect2' [ngModelOptions]="{standalone: true}"
+                          (change)="selectChangeHandler2($event)" id="containerAddedday" class="form-control">
+                          <option value="1">Send right away</option>
+                          <option value="2">Send once a day</option>
+
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 pl-1 pr-1">
+                      <div class="form-group">
+                        <input formControlName="con_add_emails" type="text" id="txtconaddemail"
+                          placeholder="Users email address" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">Send an email, when the day of departure change</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7">
+                  <div class="row mr-1 ml-1">
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 pl-1 pr-1">
+                      <div class="form-group">
+                        <select [(ngModel)]='nrSelect3' [ngModelOptions]="{standalone: true}"
+                          (change)="selectChangeHandler3($event)" id="depChangestats" class="form-control">
+                          <option value="1">Yes</option>
+                          <option value="0">No</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pl-1 pr-1">
+                      <div class="form-group">
+                        <select [(ngModel)]='nrSelect4' [ngModelOptions]="{standalone: true}"
+                          (change)="selectChangeHandler4($event)" id="depChangetime" class="form-control">
+                          <option value="1">Send right away</option>
+                          <option value="2">Send once a day</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 pl-1 pr-1">
+                      <div class="form-group">
+                        <input type="text" formControlName="dep_change_emails" id="txtdepchangeemail"
+                          placeholder="Users email address" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">Send an email, when the day of arrival change</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7">
+                  <div class="row mr-1 ml-1">
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 pl-1 pr-1">
+                      <div class="form-group">
+                        <select [(ngModel)]='nrSelect5' [ngModelOptions]="{standalone: true}"
+                          (change)="selectChangeHandler5($event)" id="arrivalChangestats" class="form-control">
+                          <option value="1">Yes</option>
+                          <option value="0">No</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pl-1 pr-1">
+                      <div class="form-group">
+                        <select [(ngModel)]='nrSelect6' [ngModelOptions]="{standalone: true}"
+                          (change)="selectChangeHandler6($event)" id="arrivalChangetime" class="form-control">
+                          <option value="1">Send right away</option>
+                          <option value="2">Send once a day</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 pl-1 pr-1">
+                      <div class="form-group">
+                        <input type="text" formControlName="arr_change_emails" id="txtarrchangeemail"
+                          placeholder="Users email address" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">Send an email, when a container is deleted from the shipment overview</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7">
+                  <div class="row mr-1 ml-1">
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 pl-1 pr-1">
+                      <div class="form-group">
+                        <select [(ngModel)]='nrSelect7' [ngModelOptions]="{standalone: true}"
+                          (change)="selectChangeHandler7($event)" id="condeletests" class="form-control">
+                          <option value="1">Yes</option>
+                          <option value="0">No</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pl-1 pr-1">
+                      <div class="form-group">
+                        <select [(ngModel)]='nrSelect8' [ngModelOptions]="{standalone: true}"
+                          (change)="selectChangeHandler8($event)" id="condeletetime" class="form-control">
+                          <option value="1">Send right away</option>
+                          <option value="2">Send once a day</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 pl-1 pr-1">
+                      <div class="form-group">
+                        <input type="text" formControlName="con_del_emails" id="txtcondelemail"
+                          placeholder="Users email address" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">Send an email, when a container has Gate Out</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7">
+                  <div class="row mr-1 ml-1">
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 pl-1 pr-1">
+                      <div class="form-group">
+                        <select [(ngModel)]='nrSelect9' [ngModelOptions]="{standalone: true}"
+                          (change)="selectChangeHandler9($event)" id="contimeoutsts" class="form-control">
+                          <option value="1">Yes</option>
+                          <option value="0">No</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pl-1 pr-1">
+                      <div class="form-group">
+                        <select [(ngModel)]='nrSelect10' [ngModelOptions]="{standalone: true}"
+                          (change)="selectChangeHandler10($event)" id="contimeouttime" class="form-control">
+                          <option value="1">Send right away</option>
+                          <option value="2">Send once a day</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 pl-1 pr-1">
+                      <div class="form-group">
+                        <input type="text" formControlName="time_out_emails" id="txttimeoutemail"
+                          placeholder="Timeout email address" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 form-label">
+                  <label class="mt-2">Send an email before "Until Arrival"</label>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7">
+                  <div class="row mr-1 ml-1">
+                    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2 pl-1 pr-1">
+                      <div class="form-group">
+                        <select [(ngModel)]='nrSelect9' [ngModelOptions]="{standalone: true}"
+                          (change)="selectChangeHandler9($event)" id="conuntilarrivalbyemail" class="form-control">
+                          <option value="1">Yes</option>
+                          <option value="0">No</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 pl-1 pr-1">
+                      <div class="form-group">
+                        <select [(ngModel)]='nrSelect10' [ngModelOptions]="{standalone: true}"
+                          (change)="selectChangeHandler10($event)" id="conuntilarrivaldays" class="form-control">
+                          <option value="1">1 Day</option>
+                          <option value="2">2 Days</option>
+                          <option value="3">3 Days</option>
+                          <option value="4">4 Days</option>
+                          <option value="5">5 Days</option>
+                          <option value="6">6 Days</option>
+                          <option value="7">7 Days</option>
+                          <option value="8">8 Days</option>
+                          <option value="9">9 Days</option>
+                          <option value="10">10 Days</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 pl-1 pr-1">
+                      <div class="form-group">
+                        <input type="text" formControlName="until_arrival_emails" id="txtuntilarrivalemail"
+                          placeholder="Until Arrival email address" class="form-control">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+
+          </div>
+          <!--</div>-->
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-0 mt-3">
+          <div class="form-group-btn text-right">
+            <a class="btnCloseSettings btn btn-success" style="margin-right:5px;" routerLink="/Shipment">Close </a>
+            <button type="submit" class="btn btn-success">Save Changes</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
+<app-footersection></app-footersection>

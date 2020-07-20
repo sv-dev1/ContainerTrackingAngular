@@ -1,0 +1,10 @@
+#notifications {
+  background-color: #FFFFFF;
+  display: block;
+  width: 100%;
+  position: relative;
+}
+
+  #notifications .alert-danger {
+    margin-bottom: 0px;
+  }
