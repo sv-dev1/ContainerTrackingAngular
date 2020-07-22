@@ -24,7 +24,7 @@
             <!-- end loader -->
 
 
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
               <div class="inner-shipment">
                 <select id="containerDrop" [(ngModel)]="selected" (change)="onSelect($event)">
                   <option [selected]="k.userid===0" value={{k.userid}} *ngFor="let k of dropdownElements;let i = index">
@@ -36,13 +36,34 @@
                 <button type="button" (click)="showCompanypopup()" class="btn btn-sm" data-toggle="modal">Edit
                   List</button>
               </div>
-            </div>
-            <div class="col-md-3">
+            </div> -->
+            <!-- <div class="col-md-3">
               <div class="inner-shipment add-ship text-right">
                 <button type="button" class="btn btn-sm " data-toggle="modal" data-target="#container">Add
                   shipment</button>
+              </div>
+            </div> -->
 
-                <!--<button href="#container" type="button" class="btn">Add shipment</button>-->
+            <div class="col-md-4">
+              <div class="inner-shipment">
+                <select id="containerDrop" [(ngModel)]="selected" (change)="onSelect($event)" class="w-100 ng-pristine ng-valid ng-touched">
+                  <option [selected]="k.userid===0" value={{k.userid}} *ngFor="let k of dropdownElements;let i = index">
+                    {{k.name}}
+                  </option>
+                </select>              
+              </div>
+            </div>
+
+            <div class="col-md-5 pl-3 pl-sm-0">
+            <div class="toggle-hover-button inner-shipment mt-1">
+            <div class="toggle-hover float-left">
+              <button class="btn btn-sm" data-target="#detail3" style="height: 30px; margin-top: 0px;border:0px;" type="button">Manage List</button><div class="shpment" id="detail3">
+                <button class="btn btn-sm" data-target="#ModelAddList" data-toggle="modal" type="button">Add List</button>
+                <button class="btn btn-sm" data-toggle="modal" type="button" (click)="showCompanypopup()">Edit List</button>               
+                <button type="button" (click)="deleteCompanyDetails()" class="btn">Delete</button>
+              </div>
+              </div>
+                <button class="btn btn-sm " data-target="#container" data-toggle="modal" type="button">Add shipment</button>
               </div>
             </div>
           </div>
@@ -1332,7 +1353,7 @@
           <!--Modal content-->
           <div class="modal-content">
             <div class="modal-header">
-              <label>Edit / Delete List</label>
+              <label>Edit List</label>
               <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
@@ -1349,8 +1370,7 @@
 
               </form>
             </div>
-            <div class="modal-footer inner-shipment">
-              <button type="button" (click)="deleteCompanyDetails()" class="btn">Delete</button>
+            <div class="modal-footer inner-shipment">             
               <button type="button" (click)="updateCompanyDetails()" class="btn">Submit</button>
               <button type="button" class="btn" data-dismiss="modal">Close</button>
             </div>

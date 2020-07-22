@@ -628,26 +628,32 @@ export class ShipmentComponent {
   }
   deleteCompanyDetails() {
     $("#EditDeleteList").modal('hide');
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '420px',
-      data: "Are you sure to delete this ?"
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        var data = localStorage.getItem("user_id");
-        this.usersService.deleteCompanyAliasDetails(this.vale, data).subscribe(res =>
-        {
-          if (res == "1") {
-            $("#EditDeleteList").modal('hide');
-            this.showNotification('top', 'center', 'Information submitted successfully');
-            this.ngOnInit();
-          }
-          else {
-            this.showErrorNotification('top', 'center', res);
-          }
-        });
-      }
-    });
+    if (this.editcompany_name == "All Containers" || this.editcompany_name == undefined) {
+      this.showErrorNotification('top', 'center', 'Please select valid company name');
+      $("#EditDeleteList").modal('hide');
+    }
+    else{
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '420px',
+        data: "Are you sure to delete this ?"
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          var data = localStorage.getItem("user_id");
+          this.usersService.deleteCompanyAliasDetails(this.vale, data).subscribe(res =>
+          {
+            if (res == "1") {
+              $("#EditDeleteList").modal('hide');
+              this.showNotification('top', 'center', 'Information submitted successfully');
+              this.ngOnInit();
+            }
+            else {
+              this.showErrorNotification('top', 'center', res);
+            }
+          });
+        }
+      });
+    }    
   }
   addShipsgocontainer() {
     if (this.userShipList.length == 0) {

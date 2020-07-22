@@ -223,7 +223,8 @@ a.a-btn {
   letter-spacing: 1.3px;
   margin: 10px 0 5px;
 }
-
+div#detail3 button:hover {color: #fff;
+  background: #033156;}
 
 
 /*********************4 Section**********************/
@@ -1526,6 +1527,16 @@ agm-map {
     font-size: 13px;
     line-height: 30px;
   }
+  div#detail3 button {
+    margin: 0;
+    background: none;
+    border-radius: 0;
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+div#detail3 button:hover {color: #fff;
+  background: #033156;}
 
 .toggle-hover:hover .shpment {
   display: block;
