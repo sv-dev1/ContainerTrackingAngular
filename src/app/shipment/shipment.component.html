@@ -113,7 +113,7 @@
                 <thead>
                   <collapsible-table-row>
 
-                    <th class="pointer" style="cursor:pointer;" (click)="sort('po_no')">
+                    <th *ngIf="shipment_ref == 1" class="pointer" style="cursor:pointer;" (click)="sort('po_no')">
                       Shipment Ref.
                       <i class="fa"
                         [ngClass]="{'fa-sort': column != 'po_no', 'fa-sort-asc': (column == 'po_no' && isDesc), 'fa-sort-desc': (column == 'po_no' && !isDesc) }"
@@ -132,7 +132,7 @@
                         [ngClass]="{'fa-sort': column != 'destination', 'fa-sort-asc': (column == 'destination' && isDesc), 'fa-sort-desc': (column == 'destination' && !isDesc) }"
                         aria-hidden="true"></i>
                     </th>
-                    <th *ngIf="containernumber == 1" class="pointer" style="cursor:pointer;"
+                    <th *ngIf="container_no == 1" class="pointer" style="cursor:pointer;"
                       (click)="sort('container_no')">
                       Container No.
                       <i class="fa"
@@ -145,20 +145,20 @@
                         [ngClass]="{'fa-sort': column != 'departure', 'fa-sort-asc': (column == 'departure' && isDesc), 'fa-sort-desc': (column == 'departure' && !isDesc) }"
                         aria-hidden="true"></i>
                     </th>
-                    <th *ngIf="arrival == 1" class="pointer" style="cursor:pointer;" (click)="sort('first_arrival')">
+                    <th *ngIf="firstarrival == 1" class="pointer" style="cursor:pointer;" (click)="sort('first_arrival')">
                       First Arrival
                       <i class="fa"
                         [ngClass]="{'fa-sort': column != 'first_arrival', 'fa-sort-asc': (column == 'first_arrival' && isDesc), 'fa-sort-desc': (column == 'first_arrival' && !isDesc) }"
                         aria-hidden="true"></i>
                     </th>
-                    <th *ngIf="firstarrival == 1" class="pointer" style="cursor:pointer;" (click)="sort('arrival')">
+                    <th *ngIf="arrival == 1" class="pointer" style="cursor:pointer;" (click)="sort('arrival')">
                       Final Arrival
                       <i class="fa"
                         [ngClass]="{'fa-sort': column != 'arrival', 'fa-sort-asc': (column == 'arrival' && isDesc), 'fa-sort-desc': (column == 'arrival' && !isDesc) }"
                         aria-hidden="true"></i>
                     </th>
 
-                    <th *ngIf="shipingline == 1" class="pointer" style="cursor:pointer;"
+                    <th *ngIf="shipping_line == 1" class="pointer" style="cursor:pointer;"
                       (click)="sort('shipping_line')">
                       Shipping Line
                       <i class="fa"
@@ -171,14 +171,14 @@
                      aria-hidden="true"></i>
                 </th> -->
 
-                    <th *ngIf="daysbeforearrival == 1" class="pointer" style="cursor:pointer;"
+                    <th *ngIf="days_before_arrival == 1" class="pointer" style="cursor:pointer;"
                       (click)="sort('daysbeforearrival')">
                       Until arrival
                       <i class="fa"
                         [ngClass]="{'fa-sort': column != 'CategoryName', 'fa-sort-asc': (column == 'CategoryName' && isDesc), 'fa-sort-desc': (column == 'CategoryName' && !isDesc) }"
                         aria-hidden="true"></i>
                     </th>
-                    <th *ngIf="earlydelay == 1" class="pointer text-left" style="cursor:pointer;"
+                    <th *ngIf="early_delay == 1" class="pointer text-left" style="cursor:pointer;"
                       (click)="sort('CategoryName')">
                       -Early/ +Delay
                       <i class="fa"
@@ -203,11 +203,11 @@
                   <collapsible-table-row class="tblRow"
                     *ngFor="let el of selectedData | searching:Shipmentref | paginate: config | sorting: {property: column, direction: direction} ;let i = index"
                     [detail]="detail1" (click)="onItemClick($event, el,el.origin)">
-                    <td class="pointer-none"><i class="mdi mdi-chevron-right"></i>{{el.po_no}}</td>
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && shipment_ref == 1"><i class="mdi mdi-chevron-right"></i>{{el.po_no}}</td>
                     <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && origin == 1">{{el.origin}}</td>
                     <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && destination == 1">{{el.destination}}
                     </td>
-                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && containernumber == 1"><a
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && container_no == 1"><a
                         style="color:#065798;font-weight: 500;" target="_blank"
                         href={{el.shipping_link}}{{el.container_no}}>{{el.container_no}}</a></td>
                     <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && departure == 1">
@@ -219,13 +219,13 @@
                       *ngIf="el.origin!='DATA NOT FOUND' && firstarrival == 1 && el.first_arrival==null">-</td>
                     <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && arrival == 1">
                       {{el.arrival| date: 'dd-MMM-yyyy'}}</td>
-                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && shipingline == 1">
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && shipping_line == 1">
                       {{el.shipping_line}}</td>
                     <!-- <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && vesselname == 1">{{el.vesselname}}</td> -->
-                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && daysbeforearrival == 1">
+                    <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && days_before_arrival == 1">
                       {{el.daysbeforearrival}}</td>
 
-                    <td class="pointer-none text-left" *ngIf="el.origin!='DATA NOT FOUND' && earlydelay == 1"><span
+                    <td class="pointer-none text-left" *ngIf="el.origin!='DATA NOT FOUND' && early_delay == 1"><span
                         *ngIf="checkdate(el.first_arrival,el.arrival) != 0"><img width="25px"
                           src="../../assets/images/clock.png"></span><span
                         *ngIf="checkdate(el.first_arrival,el.arrival) == 0"><img width="20px"
@@ -269,7 +269,7 @@
                           <tr>
                             <th *ngIf="origin == 1">From <br><span><b>{{el.origin}}</b></span></th>
                             <th *ngIf="destination == 1">To <br><span><b>{{el.destination}}</b></span></th>
-                            <th *ngIf="containernumber == 1">Container Number
+                            <th *ngIf="container_no == 1">Container Number
                               <br><span><b>{{el.container_no}}</b></span></th>
                             <th *ngIf="transittime == 1">Expected Trainsit Time<br>
                               <span><b>{{checkdate1(el.departure, el.first_arrival)}}</b></span></th>

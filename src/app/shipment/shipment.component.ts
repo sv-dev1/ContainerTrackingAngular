@@ -95,7 +95,7 @@ export class ShipmentComponent {
   dropShippingLine: any;
   Shipsgo_container: any;
   dta: any;
-  shipment: any;
+  shipment_ref: any;
   origin: any;
   destination: any;
   containertype: any;
@@ -118,6 +118,25 @@ export class ShipmentComponent {
   userShipList: any = [];
   sts: number = 0;
   allShippingLines: any;
+
+  container_type : any;
+  container_no : any;
+  shipping_line : any;
+  status: any;
+  early_delay : any;
+  from_country : any;
+  to_country : any;
+  transit_time : any;
+  first_eta : any;
+  bl_reference_no : any;
+  transit_ports : any;
+  getout_date: any;
+  empty_return_date : any;
+  shipment_by : any;
+  days_before_arrival: any;
+  vessel_name : any;
+
+
   public paths = [
     { lat: 25.774, lng: -80.190 },
     { lat: 18.466, lng: -66.118 },
@@ -144,8 +163,8 @@ export class ShipmentComponent {
         //setTimeout(()=>this.spinnerService.hide(),3000)
         //this.spinnerService.hide();
         console.log("-----------" + this.Settings.Origin );
-        this.shipment = this.Settings.Shipment_ref;
-        if (this.shipment == 1)
+        this.shipment_ref = this.Settings.shipment_ref;
+        if (this.shipment_ref == 1)
         this.colCount = this.colCount + 1;
         this.origin = this.Settings.Origin;
         if (this.origin == 1)
@@ -153,20 +172,36 @@ export class ShipmentComponent {
         
         console.log("-----------" + this.origin);
         
-        
-        this.destination = this.Settings.ContainerNo;
+        this.container_type= this.Settings.container_type;
+        this.container_no= this.Settings.container_no;
+        this.shipping_line= this.Settings.shipping_line;
+        this.status= this.Settings.status;
+        this.early_delay= this.Settings.early_delay;
+        this.from_country= this.Settings.from_country;
+        this.to_country= this.Settings.to_country;
+        this.transit_time= this.Settings.transit_time;
+        this.first_eta= this.Settings.first_eta;
+        this.bl_reference_no= this.Settings.bl_reference_no;
+        this.transit_ports= this.Settings.transit_ports;
+        this.getout_date= this.Settings.getout_date;
+        this.empty_return_date= this.Settings.empty_return_date;
+        this.shipment_by= this.Settings.shipment_by;
+        this.days_before_arrival= this.Settings.days_before_arrival;
+        this.vessel_name= this.Settings.vessel_name;
+
+        this.destination = this.Settings.destination;
         if (this.destination == 1)
         this.colCount = this.colCount + 1;
         this.containernumber = this.Settings.ContainerNo;
         if (this.containernumber == 1)
         this.colCount = this.colCount + 1;
-        this.departure = this.Settings.Departure;
+        this.departure = this.Settings.departure;
         if (this.departure == 1)
         this.colCount = this.colCount + 1;
-        this.arrival = this.Settings.Arrival;
+        this.arrival = this.Settings.arrival;
         if (this.arrival == 1)
         this.colCount = this.colCount + 1;
-        this.firstarrival = this.Settings.FirstArrival;
+        this.firstarrival = this.Settings.first_arrival;
         if (this.firstarrival == 1)
         this.colCount = this.colCount + 1;
         this.shipingline = this.Settings.ShippingLine;
@@ -691,7 +726,7 @@ export class ShipmentComponent {
         this.Shipsgo_container.container_type = this.selectType;
         this.Shipsgo_container.destination = "";
         this.Shipsgo_container.departure = '1970-01-01';
-        this.Shipsgo_container.arrival = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+        this.Shipsgo_container.arrival = '1970-01-01';
         this.Shipsgo_container.first_arrival = '1970-01-01';
         this.Shipsgo_container.shipping_line = this.selecShippingLine;
         this.Shipsgo_container.status = "";

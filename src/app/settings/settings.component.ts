@@ -27,6 +27,8 @@ export class SettingsComponent implements OnInit {
   nrSelect8: any;
   nrSelect9: any;
   nrSelect10: any;
+  nrSelect11:any;
+  nrSelect12:any;
   notifcations: any;
   chkShipmentref: boolean;
   chkorigin: boolean;
@@ -90,6 +92,7 @@ export class SettingsComponent implements OnInit {
       arr_change_emails: ['', [Validators.required]],
       con_del_emails: ['', [Validators.required]],
       time_out_emails: ['', [Validators.required]],
+      until_arrival_emails: ['', [Validators.required]],
     });
   this.setSettingsDetails();
   }
@@ -126,22 +129,28 @@ export class SettingsComponent implements OnInit {
       this.Settings.days_before_arrival = this.chkdays_beforeArrival == true ? 1 : 0;
       this.Settings.vessel_name = this.chk_vesselName == true ? 1 : 0;
       this.UpdateSettings(this.Settings);
-      this.notifcations.userid = data;
-      this.notifcations.con_add_sts = this.nrSelect1;
-      this.notifcations.con_add_time = this.nrSelect2;
-      this.notifcations.dep_change_sts = this.nrSelect3;
-      this.notifcations.dep_change_time = this.nrSelect4;
-      this.notifcations.arr_change_sts = this.nrSelect5;
-      this.notifcations.arr_change_time = this.nrSelect6;
-      this.notifcations.con_del_sts = this.nrSelect7;
-      this.notifcations.con_del_time = this.nrSelect8;
-      this.notifcations.con_timeout_sts = this.nrSelect9;
-      this.notifcations.con_timeout_time = this.nrSelect10;
+      this.notifcations.user_id = data;
+      this.notifcations.ConAddSts = Number(this.nrSelect1);
+      this.notifcations.ConAddTime = Number(this.nrSelect2);
+      this.notifcations.DepChangeSts = Number(this.nrSelect3);
+      this.notifcations.DepChangeTime = Number(this.nrSelect4);
+      this.notifcations.ArrChangeSts = Number(this.nrSelect5);
+      this.notifcations.ArrChangeTime = Number(this.nrSelect6);
+      this.notifcations.ConDelSts = Number(this.nrSelect7);
+      this.notifcations.ConDelTime = Number(this.nrSelect8);
+      this.notifcations.ConTimeoutSts = Number(this.nrSelect9);
+      this.notifcations.ConTimeoutTime = Number(this.nrSelect10);
+
+      this.notifcations.ConUntilarrivalByEmail = Number(this.nrSelect12);
+      
+      this.notifcations.ConUntilarrivalDays = Number(this.nrSelect11);
       this.notifcations.con_add_emails = ((document.getElementById("txtconaddemail") as HTMLInputElement).value);
       this.notifcations.dep_change_emails = ((document.getElementById("txtdepchangeemail") as HTMLInputElement).value);
       this.notifcations.arr_change_emails = ((document.getElementById("txtarrchangeemail") as HTMLInputElement).value);
       this.notifcations.con_del_emails = ((document.getElementById("txtcondelemail") as HTMLInputElement).value);
       this.notifcations.con_timeout_emails = ((document.getElementById("txttimeoutemail") as HTMLInputElement).value);
+      this.notifcations.con_unit_emails = ((document.getElementById("txtuntilarrivalemail") as HTMLInputElement).value);
+
       this.updateNotifications(this.notifcations);
 
     }
@@ -185,6 +194,14 @@ export class SettingsComponent implements OnInit {
   selectChangeHandler10(event: any) {
     //update the ui
     this.nrSelect10 = event.target.value;
+  }
+  selectChangeHandler11(event: any) {
+    //update the ui
+    this.nrSelect11 = event.target.value;
+  }
+  selectChangeHandler12(event: any) {
+    //update the ui
+    this.nrSelect12 = event.target.value;
   }
   showNotification(from, align) {
     //const type = ['', 'info', 'success', 'warning', 'danger'];
@@ -255,21 +272,24 @@ export class SettingsComponent implements OnInit {
       });
       this.usersService.getNotificationsDetails(data).subscribe(res => {
         this.notifcations = res;
-        this.nrSelect1 = this.notifcations.con_add_sts;
-        this.nrSelect2 = this.notifcations.con_add_time;
-        this.nrSelect3 = this.notifcations.dep_change_sts;
-        this.nrSelect4 = this.notifcations.dep_change_time;
-        this.nrSelect5 = this.notifcations.arr_change_sts;
-        this.nrSelect6 = this.notifcations.arr_change_time;
-        this.nrSelect7 = this.notifcations.con_del_sts;
-        this.nrSelect8 = this.notifcations.con_del_time;
-        this.nrSelect9 = this.notifcations.con_timeout_sts;
-        this.nrSelect10 = this.notifcations.con_timeout_time;
+        this.nrSelect1 = this.notifcations.ConAddSts;
+        this.nrSelect2 = this.notifcations.ConAddTime;
+        this.nrSelect3 = this.notifcations.DepChangeSts;
+        this.nrSelect4 = this.notifcations.DepChangeTime;
+        this.nrSelect5 = this.notifcations.ArrChangeSts;
+        this.nrSelect6 = this.notifcations.ArrChangeTime;
+        this.nrSelect7 = this.notifcations.ConDelSts;
+        this.nrSelect8 = this.notifcations.ConDelTime;
+        this.nrSelect9 = this.notifcations.ConTimeoutSts;
+        this.nrSelect10 = this.notifcations.ConTimeoutTime;
+        this.nrSelect11 = this.notifcations.ConUntilarrivalDays;
+        this.nrSelect12 = this.notifcations.ConUntilarrivalByEmail;
         this.profileForm.controls['con_add_emails'].setValue(this.notifcations.con_add_emails);
         this.profileForm.controls['dep_change_emails'].setValue(this.notifcations.dep_change_emails);
         this.profileForm.controls['arr_change_emails'].setValue(this.notifcations.arr_change_emails);
         this.profileForm.controls['con_del_emails'].setValue(this.notifcations.con_del_emails);
         this.profileForm.controls['time_out_emails'].setValue(this.notifcations.con_timeout_emails);
+        this.profileForm.controls['until_arrival_emails'].setValue(this.notifcations.con_unit_emails);
       });
     }
     }

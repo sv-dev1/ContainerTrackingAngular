@@ -1,7 +1,6 @@
 export class Notifications {
   id: Int16Array;
-  user_id: Int16Array;
-  userid: string;
+  user_id: string;
   con_add_sts: Int16Array;
   con_add_time: Int16Array;
   dep_change_sts: Int16Array;
