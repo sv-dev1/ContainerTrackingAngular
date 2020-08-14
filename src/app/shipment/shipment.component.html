@@ -211,14 +211,14 @@
                         style="color:#065798;font-weight: 500;" target="_blank"
                         href={{el.shipping_link}}{{el.container_no}}>{{el.container_no}}</a></td>
                     <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && departure == 1">
-                      {{el.departure| date: 'dd-MMM-yyyy'}}</td>
+                      {{ (el.departure  !== 'N/A') ? (el.departure | date: 'dd-MMM-yyyy') : el.departure  }}</td>
                     <td class="pointer-none"
-                      *ngIf="el.origin!='DATA NOT FOUND' && firstarrival == 1 && el.first_arrival!=null">
-                      {{el.first_arrival| date: 'dd-MMM-yyyy'}} </td>
+                      *ngIf="el.origin!='DATA NOT FOUND' && firstarrival == 1 && el.first_arrival != null">
+                      {{ (el.first_arrival  !== 'N/A') ? (el.first_arrival | date: 'dd-MMM-yyyy') : el.first_arrival }} </td>
                     <td class="pointer-none"
                       *ngIf="el.origin!='DATA NOT FOUND' && firstarrival == 1 && el.first_arrival==null">-</td>
                     <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && arrival == 1">
-                      {{el.arrival| date: 'dd-MMM-yyyy'}}</td>
+                      {{ (el.arrival  !== 'N/A') ? (el.arrival | date: 'dd-MMM-yyyy') : el.arrival  }}</td>
                     <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && shipping_line == 1">
                       {{el.shipping_line}}</td>
                     <!-- <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && vesselname == 1">{{el.vesselname}}</td> -->
@@ -229,8 +229,8 @@
                         *ngIf="checkdate(el.first_arrival,el.arrival) != 0"><img width="25px"
                           src="../../assets/images/clock.png"></span><span
                         *ngIf="checkdate(el.first_arrival,el.arrival) == 0"><img width="20px"
-                          src="../../assets/images/check icon.png"></span> {{checkdate(el.first_arrival,el.arrival)}}
-                      days</td>
+                          src="../../assets/images/check icon.png"></span> {{ (el.arrival  == 'N/A' || el.first_arrival == 'N/A' ) ? 'N/A' : checkdate(el.first_arrival, el.arrival) }}
+                          {{ (el.arrival  == 'N/A' || el.first_arrival == 'N/A' ) ? '' : 'days' }}</td>
                     <td *ngIf="el.origin!='DATA NOT FOUND'"><i style="font-size:20px;pointer-events: none;"
                         class="mdi mdi-plus-circle-outline"></i></td>
                     <td *ngIf="el.origin=='DATA NOT FOUND'" attr.colspan="{{colCount}}">
