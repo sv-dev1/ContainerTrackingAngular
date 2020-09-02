@@ -201,7 +201,7 @@
                 </thead>
                 <tbody>
                   <collapsible-table-row class="tblRow"
-                    *ngFor="let el of selectedData | searching:Shipmentref | paginate: config | sorting: {property: column, direction: direction} ;let i = index"
+                    *ngFor="let el of selectedData | filter:Shipmentref | paginate: config | sorting: {property: column, direction: direction} ;let i = index"
                     [detail]="detail1" (click)="onItemClick($event, el,el.origin)">
                     <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && shipment_ref == 1"><i class="mdi mdi-chevron-right"></i>{{el.po_no}}</td>
                     <td class="pointer-none" *ngIf="el.origin!='DATA NOT FOUND' && origin == 1">{{el.origin}}</td>
@@ -264,21 +264,21 @@
                     </div>
                     <collapsible-table-row-detail #detail1 class="table">
                       <table class="table" *ngIf="el.origin!='DATA NOT FOUND'"
-                        style="display: block; margin-top: 60px;width:100%;">
+                        style="margin-top: 60px;width:100%;">
                         <thead>
                           <tr>
-                            <th *ngIf="origin == 1">From <br><span><b>{{el.origin}}</b></span></th>
-                            <th *ngIf="destination == 1">To <br><span><b>{{el.destination}}</b></span></th>
-                            <th *ngIf="container_no == 1">Container Number
-                              <br><span><b>{{el.container_no}}</b></span></th>
-                            <th *ngIf="transittime == 1">Expected Trainsit Time<br>
+                            <th *ngIf="origin == 1" style=" width: 20%; text-align: left; ">From <br><span><b>{{el.origin}}</b></span></th>
+                            <th *ngIf="destination == 1" style=" width: 20%; text-align: left; ">To <br><span><b>{{el.destination}}</b></span></th>
+                            <th *ngIf="container_no == 1" style=" width: 20%; text-align: left; ">Container Size
+                              <br><span><b>{{el.container_type}}</b></span></th>
+                            <th *ngIf="transittime == 1" style=" width: 20%; text-align: left; ">Expected Trainsit Time<br>
                               <span><b>{{checkdate1(el.departure, el.first_arrival)}}</b></span></th>
-                            <th *ngIf="transittime == 1">Actual Trainsit Time <br>
+                            <th *ngIf="transittime == 1" style=" width: 20%; text-align: left; ">Actual Trainsit Time <br>
                               <span><b>{{checkdate1(el.departure,el.arrival)}}</b></span></th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr>
+                          <!-- <tr>
                             <td style="float:left;">Container details<br><span
                                 class="for-color"><b>{{el.container_no}}</b></span>
                             </td>
@@ -299,9 +299,9 @@
                               </span>
                             </td>
                             <td>
-                              <!--<i class="mdi mdi-account"></i>-->
+                              <i class="mdi mdi-account"></i>
                             </td>
-                          </tr>
+                          </tr> -->
                           <tr>
                             <td colspan="2" class="custom_td" style="width:56%;">
                               <div class="for-date-scroll">

@@ -40,6 +40,7 @@
     "materialize-css": "^1.0.0-rc.2",
     "mysql": "^2.16.0",
     "ng-http-loader": "^6.0.1",
+    "ng2-search-filter": "^0.5.1",
     "ng4-loading-spinner": "^1.2.3",
     "ngx-google-places-autocomplete": "^2.0.3",
     "ngx-loading": "^3.0.1",

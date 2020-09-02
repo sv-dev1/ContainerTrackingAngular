@@ -162,11 +162,11 @@ export class ShipmentComponent {
         this.Settings = res;
         //setTimeout(()=>this.spinnerService.hide(),3000)
         //this.spinnerService.hide();
-        console.log("-----------" + this.Settings.Origin );
+        console.log("-----------" + this.Settings.origin );
         this.shipment_ref = this.Settings.shipment_ref;
         if (this.shipment_ref == 1)
         this.colCount = this.colCount + 1;
-        this.origin = this.Settings.Origin;
+        this.origin = this.Settings.origin;
         if (this.origin == 1)
         {this.colCount = this.colCount + 1;}
         
@@ -216,7 +216,7 @@ export class ShipmentComponent {
         if (this.daysbeforearrival == 1)
         this.colCount = this.colCount + 1;
         this.contypebool = this.Settings.ContainerType;
-        this.transittime = this.Settings.TransitTime;
+        this.transittime = this.Settings.transit_time;
         this.vesselname = this.Settings.Vesselname;
         });
         
@@ -578,6 +578,7 @@ export class ShipmentComponent {
       $("#EditDeleteList").modal('show');
   }
   onSelect(val) {
+    debugger;
     this.vale = val.target.options[val.target.options.selectedIndex].value;
     this.editcompany_name = val.target.options[val.target.options.selectedIndex].text;
     if (this.vale == 0) {

@@ -51,6 +51,8 @@ import { GooglePlaceModule } from "ngx-google-places-autocomplete";
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { NgHttpLoaderModule } from 'ng-http-loader';
 import { SpinnerProgressComponent } from './spinner-progress/spinner-progress.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -121,7 +123,8 @@ import { SpinnerProgressComponent } from './spinner-progress/spinner-progress.co
       { path: 'userlist', component: UserlistComponent },
       { path: 'containerlist', component: ContainerlistComponent }
     ]),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    Ng2SearchPipeModule
   ],
   entryComponents: [
     ConfirmationDialogComponent
