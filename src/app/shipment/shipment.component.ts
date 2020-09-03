@@ -412,7 +412,7 @@ export class ShipmentComponent {
     this.val4 = 0;
     this.val5 = 0;
     this.val6 = 0;
-    var currentDate = this.datePipe.transform(new Date(), 'MM-dd-yyyy');
+    var currentDate = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
     console.log("currentDate" + currentDate);
     var date0 = this.datePipe.transform(item.date00, 'MM-dd-yyyy');
     var date1 = this.datePipe.transform(item.date01, 'MM-dd-yyyy');

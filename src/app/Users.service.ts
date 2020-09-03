@@ -23,8 +23,8 @@ httpOptions.headers.append('Access-Control-Allow-Origin', '*');
 
 
 export class UsersService {
-  url = "https://localhost:44375/api/AccountAPI";
-  //  url = "https://api.containertracking.dk/api/AccountAPI";
+  // url = "https://localhost:44375/api/AccountAPI";
+   url = "https://api.containertracking.dk/api/AccountAPI";
   emailUrl = "https://api.containertracking.dk/api/Email";
 
   constructor(private http: HttpClient) { }

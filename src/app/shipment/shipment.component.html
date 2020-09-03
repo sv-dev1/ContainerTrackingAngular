@@ -1306,6 +1306,10 @@
                 <input type="text" class="form-control" id="container_no" name="container_no">
               </div>
               <div class="form-group">
+                <label>Search</label>
+                <input type="text" class='form-control' name='Search'>
+              </div>
+              <div class="form-group">
                 <label for="shipping_line" id="con_text">Shipping Line : </label>
                 <select class="form-control" style="width:200px;" id="shippingLine" [(ngModel)]="selecShippingLine"
                   (ngModelChange)="onSelectshippingLine(selecShippingLine)">
@@ -1433,19 +1437,19 @@
                 <div class="form-group">
 
                   <label for="list_name">Departure :</label>
-                  <input type="date" class="form-control" id="txt_departure" [ngModel]="deprture | date:'yyyy-MM-dd'"
+                  <input type="date" class="form-control" id="txt_departure" [ngModel]="deprture | date:'dd/mm/yyyy'"
                     (change)="ondeptChange($event)" name="deprture" />
                 </div>
                 <div class="form-group">
                   <label for="list_email">First Arrival :</label>
                   <input type="date" class="form-control" id="txt_firstarrival"
-                    [ngModel]="first_arrival | date:'yyyy-MM-dd'" (change)="onfirstarrivalChange($event)"
+                    [ngModel]="first_arrival | date:'dd/mm/yyyy'" (change)="onfirstarrivalChange($event)"
                     name="first_arrival" />
                 </div>
                 <div class="form-group">
                   <label for="list_email">Final Arrival :</label>
                   <input type="date" class="form-control" id="txt_finalarrival"
-                    [ngModel]="final_arrival | date:'yyyy-MM-dd'" (change)="onfinalarrivalChange($event)"
+                    [ngModel]="final_arrival | date:'dd/mm/yyyy'" (change)="onfinalarrivalChange($event)"
                     name="final_arrival" />
                 </div>
               </form>
